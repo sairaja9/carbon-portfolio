@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, Response
+from flask import Flask, jsonify, request
 from flask_cors import CORS, cross_origin
 import math
 import pandas as pd
@@ -7,18 +7,9 @@ from gurobipy import GRB
 import json
 
 app = Flask(__name__)
-# CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
-CORS(app, resources={r"/*": {"origins": "*"}}, origins='http://localhost:3000')
-
-@app.after_request
-def after_request(response):
-#   response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
-  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-  response.headers.add('Access-Control-Allow-Credentials', 'true')
-  return response
-
+CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"],
+                            "methods": ["GET", "POST", "PUT", "DELETE"],
+                            "allow_headers": ["Content-Type", "Authorization"]}})
 
 class model:
     def __init__(self, fileName='data.xlsx'):
@@ -250,7 +241,7 @@ class model:
 
 ########################## End of Class ###############################
 
-if __name__ == "__main__":
+""" if __name__ == "__main__":
     ourModel = model()
     ourModel.big_optimizer(10000, "medium", 100)
     ourDict = ourModel.returnValueDict()
@@ -260,14 +251,7 @@ if __name__ == "__main__":
     portfolio = ourModel.returnPortfolio()
     # print(portfolio)
     print(ourModel.returnShadowPriceDict())
-    print(ourModel.rateOfChange("amtDevs", 2))
-
-# Members API Route
-
-
-@app.route("/members")
-def members():
-    return {"memberList": "test"}
+    print(ourModel.rateOfChange("amtDevs", 2)) """
 
 
 if __name__ == '__main__':
@@ -278,35 +262,81 @@ if __name__ == '__main__':
     target = 0
 
 print("pre", budget, tolerance, target)
-    
 
-@app.route('/')
-# @cross_origin()
-def index():
-    return {}
-
-@app.route('/editBudget', methods=["PUT"])
-# @cross_origin()
+@app.route('/editBudget', methods=["PUT", "OPTIONS"])
 def budget_update():
-    budget = request.json['budget']
-    resp = Response("sucess")
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    return resp
+    if request.method == 'OPTIONS':
+        response = app.response_class(
+            response='',
+            status=200,
+            mimetype='application/json'
+        )
+    else:
+        # Handle the PUT request and update the budget
+        data = request.json
+        budget = data.get('budget')
+        # Perform your budget update logic here
 
-@app.route('/editTolerance', methods=["PUT"])
-# @cross_origin()
+        # Send a response for the PUT request
+        response_data = {"message": "Budget updated successfully"}
+        response = jsonify(response_data)
+    
+    # Set CORS headers for the response
+    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+    response.headers.add('Access-Control-Allow-Methods', 'PUT')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+
+    return response
+
 def tolerance_update():
-    tolerance = request.json['tolerance']
-    resp = Response("sucess")
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    return resp
+    if request.method == 'OPTIONS':
+        response = app.response_class(
+            response='',
+            status=200,
+            mimetype='application/json'
+        )
+    else:
+        # Handle the PUT request and update the tolerance
+        data = request.json
+        tolerance = data.get('tolerance')
+        # Perform your tolerance update logic here
 
-@app.route('/editTarget', methods=["PUT"])
-# @cross_origin()
+        # Send a response for the PUT request
+        response_data = {"message": "Tolerance updated successfully"}
+        response = jsonify(response_data)
+
+    # Set CORS headers for the response
+    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+    response.headers.add('Access-Control-Allow-Methods', 'PUT')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+
+    return response
+
+# Handle the OPTIONS request for the '/editTarget' route
+@app.route('/editTarget', methods=['PUT', 'OPTIONS'])
 def target_update():
-    target = request.json['target']
-    resp = Response("sucess")
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    return resp
+    if request.method == 'OPTIONS':
+        response = app.response_class(
+            response='',
+            status=200,
+            mimetype='application/json'
+        )
+    else:
+        # Handle the PUT request and update the target
+        data = request.json
+        target = data.get('target')
+        # Perform your target update logic here
+
+        # Send a response for the PUT request
+        response_data = {"message": "Target updated successfully"}
+        response = jsonify(response_data)
+
+    # Set CORS headers for the response
+    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+    response.headers.add('Access-Control-Allow-Methods', 'PUT')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+
+    return response
+
 
 print("post", budget, tolerance, target)

@@ -22,34 +22,38 @@ export default function Portfolio() {
         }
     }
 
-    const putData = async(budgetVal, toleranceVal, targetVal) => {
-        let budgetMsg = "";
-        let toleranceMsg = "";
-        let targetMsg = "";
-        try{
-            const budgetResponse = await axios.put('/editBudget', {'budget' : budgetVal});
-            budgetMsg = budgetResponse.data.updatedAt;
-            console.log(budgetMsg);
-
-            const toleranceResponse = await axios.put('/editTolerance', {'tolerance': toleranceVal});
-            toleranceMsg = toleranceResponse.data.updatedAt;
-            console.log(toleranceMsg);
-
-            const targetResponse = await axios.put('/editTarget', {'target': targetVal});
-            targetMsg = targetResponse.data.updatedAt;
-            console.log(budgetMsg);
-        }
-        catch (err){
+    const putData = async (budgetVal, toleranceVal, targetVal) => {
+        try {
+            const budgetResponse = await axios.put('http://localhost:8000/editBudget', { budget: `${budgetVal}` }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log(budgetResponse.data);
+    
+            const toleranceResponse = await axios.put('http://localhost:8000/editTolerance', { tolerance: `${toleranceVal}` }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log(toleranceResponse.data);
+    
+            const targetResponse = await axios.put('http://localhost:8000/editTarget', { target: `${targetVal}` }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log(targetResponse.data);
+        } catch (err) {
             if (err.response) {
                 console.log(err.response.data);
                 console.log(err.response.status);
                 console.log(err.response.headers);
-            }
-            else {
+            } else {
                 console.log(`Error: ${err.message}`);
             }
         }
-    }
+    }    
 
     let handleSubmit = (event) => {
         event.preventDefault();
@@ -63,7 +67,7 @@ export default function Portfolio() {
         <section className='portfolio'>
             <div className='form-container'>
                 <div className='form-inner-container'>
-                    <form className='form-group-1' onSubmit={handleSubmit}>
+                    <form className='form-group-1' onSubmit={fetchData}>
                         <label>
                             What is your budget (in US Dollars)?
                             <input
