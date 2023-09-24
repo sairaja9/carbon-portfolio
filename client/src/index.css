@@ -518,3 +518,8 @@ input, select{
 .viz-type:hover{
   background-color: #2b2a2a;
 }
+
+.graph-img{
+  height: 55vh;
+  width: auto;
+}

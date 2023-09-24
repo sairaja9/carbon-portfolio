@@ -1,20 +1,26 @@
 import React from 'react';
 
 export default function Portfolio() {
-    let filename = "";
+    let filename = "../graphs/1111.png";
     let quantity, budget, risk, viz = "1";
     let handleChange = (event) => {
         quantity = event.target.quantityField.value;
         budget = event.target.budgetField.value;
         risk = event.target.riskField.value;
+        viz = "1";
+        filename = "../graphs/" + quantity + budget + risk + viz + ".png";
+        console.log(filename);
+    }
+
+    let handleVizChange = (event) => {
         viz = event.target.value;
-        filename = "" + quantity + budget + risk + viz;
+        filename = "../graphs/" + quantity + budget + risk + viz + ".png";
     }
     return (
         <section className='portfolio'>
             <div className='form-container'>
                 <div className='top-container'>
-                    <form className='form-group-1' onChange={handleChange}>
+                    <form className='form-group-1' onSubmit={handleChange}>
                         <label>
                             How many assets do you wish to purchase?
                             <select name="quantityField">
@@ -42,10 +48,10 @@ export default function Portfolio() {
                         <button className="submit-button" type="submit">Generate Graphs</button>
                     </form>
                     <div className='graph-container'>
-                        <image src={filename} alt="graph"/>
+                        <img className="graph-img" src={require(filename)} alt="graph"/>
                     </div>
                 </div>
-                <form className='viz-selector' onChange={handleChange}>
+                <form className='viz-selector' onChange={handleVizChange}>
                     <h1 className='viz-selector-title'>Choose A Visual</h1>
                     <button className='viz-type' value="1">Project</button>
                     <button className='viz-type' value="2">Type</button>
