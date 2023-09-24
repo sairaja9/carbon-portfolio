@@ -67,7 +67,7 @@ export default function Portfolio() {
         <section className='portfolio'>
             <div className='form-container'>
                 <div className='form-inner-container'>
-                    <form className='form-group-1' onSubmit={fetchData}>
+                    <form className='form-group-1' onSubmit={handleSubmit}>
                         <label>
                             What is your budget (in US Dollars)?
                             <input
