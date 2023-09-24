@@ -1,22 +1,21 @@
 import React from 'react';
 
-import Graph from '../graphs/1111.png';
-
 export default function Portfolio() {
-    let filename = "./graphs/1111.png";
+    let prefix = "../graphs/"
+    let filename = prefix + "1111.png";
     let quantity, budget, risk, viz = "1";
     let handleChange = (event) => {
         quantity = event.target.quantityField.value;
         budget = event.target.budgetField.value;
         risk = event.target.riskField.value;
         viz = "1";
-        filename = "./graphs/" + quantity + budget + risk + viz + ".png";
+        filename = prefix + quantity + budget + risk + viz + ".png";
         console.log(filename);
     }
 
     let handleVizChange = (event) => {
         viz = event.target.value;
-        filename = "./graphs/" + quantity + budget + risk + viz + ".png";
+        filename = prefix + quantity + budget + risk + viz + ".png";
     }
     return (
         <section className='portfolio'>
@@ -50,7 +49,7 @@ export default function Portfolio() {
                         <button className="submit-button" type="submit">Generate Graphs</button>
                     </form>
                     <div className='graph-container'>
-                        <img className="graph-img" src={Graph} alt="graph"/>
+                        <img className="graph-img" src={require(filename)} alt="graph"/>
                     </div>
                 </div>
                 <form className='viz-selector' onChange={handleVizChange}>
