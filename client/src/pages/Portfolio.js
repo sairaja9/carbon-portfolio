@@ -1,100 +1,59 @@
 import React from 'react';
-import axios from 'axios';
 
 export default function Portfolio() {
-    let members = "";
-    const fetchData = async () => {
-        try {
-            const response = await axios.get('/members');
-            members = response.data;
-            console.log(response.data);
-            console.log(members);
-        }
-        catch (err) {
-            if (err.response) {
-                console.log(err.response.data);
-                console.log(err.response.status);
-                console.log(err.response.headers);
-            }
-            else {
-                console.log(`Error: ${err.message}`);
-            }
-        }
+    let filename = "";
+    let quantity, budget, risk, viz = "1";
+    let handleChange = (event) => {
+        quantity = event.target.quantityField.value;
+        budget = event.target.budgetField.value;
+        risk = event.target.riskField.value;
+        viz = event.target.value;
+        filename = "" + quantity + budget + risk + viz;
     }
-
-    const putData = async (budgetVal, toleranceVal, targetVal) => {
-        try {
-            const budgetResponse = await axios.put('http://localhost:8000/editBudget', { budget: `${budgetVal}` }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            console.log(budgetResponse.data);
-    
-            const toleranceResponse = await axios.put('http://localhost:8000/editTolerance', { tolerance: `${toleranceVal}` }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            console.log(toleranceResponse.data);
-    
-            const targetResponse = await axios.put('http://localhost:8000/editTarget', { target: `${targetVal}` }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            console.log(targetResponse.data);
-        } catch (err) {
-            if (err.response) {
-                console.log(err.response.data);
-                console.log(err.response.status);
-                console.log(err.response.headers);
-            } else {
-                console.log(`Error: ${err.message}`);
-            }
-        }
-    }    
-
-    let handleSubmit = (event) => {
-        event.preventDefault();
-        let budgetElementVal = event.target.budgetField.value;
-        let toleranceElementVal = event.target.toleranceField.value;
-        let targetElementVal = event.target.targetField.value;
-        putData(budgetElementVal, toleranceElementVal, targetElementVal);
-    }
-
     return (
         <section className='portfolio'>
             <div className='form-container'>
-                <div className='form-inner-container'>
-                    <form className='form-group-1' onSubmit={handleSubmit}>
+                <div className='top-container'>
+                    <form className='form-group-1' onChange={handleChange}>
                         <label>
-                            What is your budget (in US Dollars)?
-                            <input
-                                name="budgetField"
-                                type="number"
-                                min="0"/>
-                        </label>
-                        <label>
-                            Choose your risk tolerance level:
-                            <select name="toleranceField">
-                                <option defaultValue="low">Low</option>
-                                <option value="medium">Medium</option>
-                                <option value="high">High</option>
+                            How many assets do you wish to purchase?
+                            <select name="quantityField">
+                                <option defaultValue="1">1,000</option>
+                                <option value="2">10,000</option>
+                                <option value="3">100,000</option>
                             </select>
                         </label>
                         <label>
-                            Enter your Carbon Reduction Target (in tons of CO2):
-                            <input
-                                name="targetField"
-                                type="number"
-                                min="0"/>
+                            Choose your budget range (in U.S. Dollars):
+                            <select name="budgetField">
+                                <option defaultValue="1">1 Million</option>
+                                <option value="2">10 Million</option>
+                                <option value="3">100 Million</option>
+                            </select>
                         </label>
-                        <button className="submit-button" type="submit">Submit</button>
+                        <label>
+                            Choose a risk level:
+                            <select name="riskField">
+                                <option defaultValue="1">Low</option>
+                                <option value="2">Medium</option>
+                                <option value="3">High</option>
+                            </select>
+                        </label>
+                        <button className="submit-button" type="submit">Generate Graphs</button>
                     </form>
+                    <div className='graph-container'>
+                        <image src={filename} alt="graph"/>
+                    </div>
                 </div>
+                <form className='viz-selector' onChange={handleChange}>
+                    <h1 className='viz-selector-title'>Choose A Visual</h1>
+                    <button className='viz-type' value="1">Project</button>
+                    <button className='viz-type' value="2">Type</button>
+                    <button className='viz-type' value="3">Vintage</button>
+                    <button className='viz-type' value="4">Grade</button>
+                    <button className='viz-type' value="5">Location</button>
+                </form>
             </div>
-            <h1>{members}</h1>
         </section>
     )
 }

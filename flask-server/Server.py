@@ -1,19 +1,14 @@
-from flask import Flask, jsonify, request
-from flask_cors import CORS, cross_origin
 import math
 import pandas as pd
 import gurobipy as gp
 from gurobipy import GRB
 import json
 
-app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["http://localhost:3000"],
-                            "methods": ["GET", "POST", "PUT", "DELETE"],
-                            "allow_headers": ["Content-Type", "Authorization"]}})
-
 class model:
-    def __init__(self, fileName='data.xlsx'):
+    def __init__(self, fileName='/Users/saikraja/Documents/GitHub/carbon-portfolio/flask-server/data.xlsx'):
         self.df = pd.read_excel(fileName)
+        print("-------------")
+        print(self.df)
         self.df = self.df.dropna()
         self.valueDict = {}
         self.shadowPriceDict = {}
@@ -241,102 +236,14 @@ class model:
 
 ########################## End of Class ###############################
 
-""" if __name__ == "__main__":
+if __name__ == "__main__":
     ourModel = model()
     ourModel.big_optimizer(10000, "medium", 100)
     ourDict = ourModel.returnValueDict()
-    ourModel.small_optimizer(10000, "medium", 1000, amtTypes=ourDict['amtTypes'], amtVintage=ourDict['amtVintage'],
+    ourModel.small_optimizer(10000, "medium", 100, amtTypes=ourDict['amtTypes'], amtVintage=ourDict['amtVintage'],
                              amtRegistry=ourDict['amtRegistry'], amtLocations=ourDict['amtLocations'],
                              amtMechanisms=ourDict['amtMechanisms'], amtDevs=ourDict['amtDevs'])
     portfolio = ourModel.returnPortfolio()
     # print(portfolio)
     print(ourModel.returnShadowPriceDict())
-    print(ourModel.rateOfChange("amtDevs", 2)) """
-
-
-if __name__ == '__main__':
-    app.run(host="localhost", port=8000, debug=True)
-    dataModel = model()
-    budget = 0
-    tolerance = 0
-    target = 0
-
-print("pre", budget, tolerance, target)
-
-@app.route('/editBudget', methods=["PUT", "OPTIONS"])
-def budget_update():
-    if request.method == 'OPTIONS':
-        response = app.response_class(
-            response='',
-            status=200,
-            mimetype='application/json'
-        )
-    else:
-        # Handle the PUT request and update the budget
-        data = request.json
-        budget = data.get('budget')
-        # Perform your budget update logic here
-
-        # Send a response for the PUT request
-        response_data = {"message": "Budget updated successfully"}
-        response = jsonify(response_data)
-    
-    # Set CORS headers for the response
-    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
-    response.headers.add('Access-Control-Allow-Methods', 'PUT')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-
-    return response
-
-def tolerance_update():
-    if request.method == 'OPTIONS':
-        response = app.response_class(
-            response='',
-            status=200,
-            mimetype='application/json'
-        )
-    else:
-        # Handle the PUT request and update the tolerance
-        data = request.json
-        tolerance = data.get('tolerance')
-        # Perform your tolerance update logic here
-
-        # Send a response for the PUT request
-        response_data = {"message": "Tolerance updated successfully"}
-        response = jsonify(response_data)
-
-    # Set CORS headers for the response
-    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
-    response.headers.add('Access-Control-Allow-Methods', 'PUT')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-
-    return response
-
-# Handle the OPTIONS request for the '/editTarget' route
-@app.route('/editTarget', methods=['PUT', 'OPTIONS'])
-def target_update():
-    if request.method == 'OPTIONS':
-        response = app.response_class(
-            response='',
-            status=200,
-            mimetype='application/json'
-        )
-    else:
-        # Handle the PUT request and update the target
-        data = request.json
-        target = data.get('target')
-        # Perform your target update logic here
-
-        # Send a response for the PUT request
-        response_data = {"message": "Target updated successfully"}
-        response = jsonify(response_data)
-
-    # Set CORS headers for the response
-    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
-    response.headers.add('Access-Control-Allow-Methods', 'PUT')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-
-    return response
-
-
-print("post", budget, tolerance, target)
+    print(ourModel.rateOfChange("amtDevs", 2))

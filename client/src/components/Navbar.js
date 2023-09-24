@@ -39,8 +39,6 @@ export default function Navbar(props) {
               <HashLink to="/etfs" className="menu-item" onClick={() => window.scrollTo(0, 0)}>Invest in our ETFs  →</HashLink>
               <HashLink to="/blog" className="menu-item" onClick={() => window.scrollTo(0, 0)}>Explore our Blog  →</HashLink>
               <HashLink to="/about" className="menu-item" onClick={() => window.scrollTo(0, 0)}>About Us  →</HashLink>
-              <HashLink to="/faqs" className="menu-item" onClick={() => window.scrollTo(0, 0)}>Frequently Asked Questions  →</HashLink>
-              <HashLink to="/contact" className="menu-item" onClick={() => window.scrollTo(0, 0)}>Contact Us  →</HashLink>
             </div>
             : null}
         </div>
