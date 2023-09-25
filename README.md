@@ -1,10 +1,10 @@
-# <span style="color:blue">Diamond: Carbon Index Fund Recommendation Engine</span>
+# <span style="color:blue">Hexagon: Carbon Index Fund Recommendation Engine</span>
 
 [![GitHub Repository 1](https://img.shields.io/badge/GitHub-Explore%20the%20Code-blue?logo=github)](https://github.com/sairaja9/carbon-portfolio)
 [![GitHub Repository 2](https://img.shields.io/badge/GitHub-Other%20Repo-green?logo=github)](https://github.com/SisypheF/Hack-Rice-13)
 
-<span style="color:blue">Diamond is a groundbreaking Carbon Index Fund Recommendation solution developed during HackRice 13 (2023). Diamond mitigates risk and saves money for companies looking to fulfill their carbon credit quotas.
-Diamond also enhances productivity for individuals looking to buy carbon credits by enabling them to invest in professional portfolios.</span>
+<span style="color:blue">Hexagon is a groundbreaking Carbon Index Fund Recommendation solution developed during HackRice 13 (2023). Hexagon mitigates risk and saves money for companies looking to fulfill their carbon credit quotas.
+Hexagon also enhances productivity for individuals looking to buy carbon credits by enabling them to invest in professional portfolios.</span>
 
 ## <span style="color:blue">Table of Contents</span>
 
@@ -22,7 +22,7 @@ Diamond also enhances productivity for individuals looking to buy carbon credits
 
 ## <span style="color:blue">Team</span>
 
-<span style="color:blue">Meet the undergraduate students who brought Diamond to life:</span>
+<span style="color:blue">Meet the undergraduate students who brought Hexagon to life:</span>
 
 - <span style="color:blue">**Michael Khalfin**</span>
   - <span style="color:blue">School: Rice University</span>
@@ -56,7 +56,7 @@ Each selection is underpinned by rigorous data analysis, ensuring optimal divers
 
 ### <span style="color:blue">Technologies Used</span>
 
-<span style="color:blue">Diamond was developed using a powerful combination of technologies, including:</span>
+<span style="color:blue">Hexagon was developed using a powerful combination of technologies, including:</span>
 - <span style="color:blue">**REACT/JavaScript (JS)**: REACT/JS were crucial tools for creating the front-end, user-facing component of our application.</span>
 - <span style="color:blue">**HTML & CSS**: HTML & CSS were used to create the user interface, providing an intuitive / visually appealing experience.</span>
 - <span style="color:blue">**Python**: Python was used for all backend components, including (a) building the model, (b) creating all the visuals.</span>
