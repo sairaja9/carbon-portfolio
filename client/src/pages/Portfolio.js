@@ -1,6 +1,17 @@
 import React from 'react';
 
+import Graph from '../graphs/cap1.png';
+import Graph2 from '../graphs/cp2.png';
+import Graph3 from '../graphs/cp3.png';
+import Graph4 from '../graphs/cp4.png';
+
 export default function Portfolio() {
+    const gStyleHidden = {
+        display: "hidden"
+    }
+
+    let graphIdx = 0;
+    let graphArray = [Graph, Graph2, Graph3, Graph4];
     let prefix = "../graphs/"
     let filename = prefix + "1111.png";
     let quantity, budget, risk, viz = "1";
@@ -15,7 +26,8 @@ export default function Portfolio() {
 
     let handleVizChange = (event) => {
         viz = event.target.value;
-        filename = prefix + quantity + budget + risk + viz + ".png";
+        graphIdx++;
+        filename = graphArray[graphIdx] ;
     }
     return (
         <section className='portfolio'>
@@ -49,7 +61,7 @@ export default function Portfolio() {
                         <button className="submit-button" type="submit">Generate Graphs</button>
                     </form>
                     <div className='graph-container'>
-                        <img className="graph-img" src={require(filename)} alt="graph"/>
+                        <img className="graph-img" src={Graph} alt="graph"/>
                     </div>
                 </div>
                 <form className='viz-selector' onChange={handleVizChange}>
