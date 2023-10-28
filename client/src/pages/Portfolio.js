@@ -1,59 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ReactModalImage from "react-modal-image";
 
-import Graph from '../graphs/cap1.png';
-import Graph2 from '../graphs/cp2.png';
-import Graph3 from '../graphs/cp3.png';
-import Graph4 from '../graphs/cp4.png';
+function Portfolio() {
+    const prefix = "/graphs/";
+    const [quantity, setQuantity] = useState("1");
+    const [budget, setBudget] = useState("1");
+    const [risk, setRisk] = useState("1");
+    const [viz, setViz] = useState("1");
+    const [filename, setFilename] = useState(prefix + "1111.png");
 
-export default function Portfolio() {
-    const gStyleHidden = {
-        display: "hidden"
-    }
-
-    let graphIdx = 0;
-    let graphArray = [Graph, Graph2, Graph3, Graph4];
-    let prefix = "../graphs/"
-    let filename = prefix + "1111.png";
-    let quantity, budget, risk, viz = "1";
-    let handleChange = (event) => {
-        quantity = event.target.quantityField.value;
-        budget = event.target.budgetField.value;
-        risk = event.target.riskField.value;
-        viz = "1";
-        filename = prefix + quantity + budget + risk + viz + ".png";
+    const handleSubmit = (event) => {
+        event.preventDefault();  // Prevent form submission and page reload
+        setFilename(prefix + quantity + budget + risk + viz + ".png");
         console.log(filename);
     }
 
-    let handleVizChange = (event) => {
-        viz = event.target.value;
-        graphIdx++;
-        filename = graphArray[graphIdx] ;
+    const handleVizChange = (value) => {
+        setViz(value);
+        setFilename(prefix + quantity + budget + risk + value + ".png");
     }
+
     return (
         <section className='portfolio'>
             <div className='form-container'>
                 <div className='top-container'>
-                    <form className='form-group-1' onSubmit={handleChange}>
+                    <form className='form-group-1' onSubmit={handleSubmit}>
                         <label>
                             How many assets do you wish to purchase?
-                            <select name="quantityField">
-                                <option defaultValue="1">1,000</option>
+                            <select name="quantityField" onChange={(event) => {setQuantity(event.target.value)}}>
+                                <option value="1">1,000</option>
                                 <option value="2">10,000</option>
                                 <option value="3">100,000</option>
                             </select>
                         </label>
                         <label>
                             Choose your budget range (in U.S. Dollars):
-                            <select name="budgetField">
-                                <option defaultValue="1">1 Million</option>
+                            <select name="budgetField" onChange={(event) => {setBudget(event.target.value)}}>
+                                <option value="1">1 Million</option>
                                 <option value="2">10 Million</option>
                                 <option value="3">100 Million</option>
                             </select>
                         </label>
                         <label>
                             Choose a risk level:
-                            <select name="riskField">
-                                <option defaultValue="1">Low</option>
+                            <select name="riskField" onChange={(event) => {setRisk(event.target.value)}}>
+                                <option value="1">Low</option>
                                 <option value="2">Medium</option>
                                 <option value="3">High</option>
                             </select>
@@ -61,18 +52,25 @@ export default function Portfolio() {
                         <button className="submit-button" type="submit">Generate Graphs</button>
                     </form>
                     <div className='graph-container'>
-                        <img className="graph-img" src={Graph} alt="graph"/>
+                        <ReactModalImage
+                            small={filename}
+                            large={filename}
+                            alt="graph"
+                            className="graph-img"
+                        />
                     </div>
                 </div>
-                <form className='viz-selector' onChange={handleVizChange}>
+                <div className='viz-selector'>
                     <h1 className='viz-selector-title'>Choose A Visual</h1>
-                    <button className='viz-type' value="1">Project</button>
-                    <button className='viz-type' value="2">Type</button>
-                    <button className='viz-type' value="3">Vintage</button>
-                    <button className='viz-type' value="4">Grade</button>
-                    <button className='viz-type' value="5">Location</button>
-                </form>
+                    <button className='viz-type' type="button" value="1" onClick={() => handleVizChange("1")}>Project</button>
+                    <button className='viz-type' type="button" value="2" onClick={() => handleVizChange("2")}>Type</button>
+                    <button className='viz-type' type="button" value="3" onClick={() => handleVizChange("3")}>Vintage</button>
+                    <button className='viz-type' type="button" value="4" onClick={() => handleVizChange("4")}>Grade</button>
+                    <button className='viz-type' type="button" value="5" onClick={() => handleVizChange("5")}>Location</button>
+                </div>
             </div>
         </section>
-    )
+    );
 }
+
+export default Portfolio;
