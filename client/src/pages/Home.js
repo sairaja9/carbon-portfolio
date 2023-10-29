@@ -1,3 +1,5 @@
+import { HashLink } from 'react-router-hash-link';
+
 import Landing from '../components/Landing';
 import BlogPost from '../components/BlogPost';
 
@@ -10,7 +12,7 @@ export default function Home() {
     return (
         <section className='home'>
             <Landing image={Smoke} title="Unlock the Power of a Carbon Credit Portfolio" subtitle="Your path to a greener future starts here">
-                <button className='landing-button'>For Enterprise →</button>
+                <HashLink to="/portfolio"><button className='landing-button'>For Enterprise →</button></HashLink>
                 <button className='landing-button clear'>For Individuals →</button>
             </Landing>
             <div className="blog-title-container">
@@ -21,7 +23,7 @@ export default function Home() {
             </div>
             <div className='featured-blog-posts'>
                 <div className='featured-blog-posts-inner-container'>
-                    <BlogPost imgSrc={Globe}>"Carbon Markets 101": Basics of Carbon Markets for Newcomers</BlogPost>
+                    <HashLink to="/blog#post-1" style={{textDecoration:"none"}}><BlogPost imgSrc={Globe}>"Carbon Markets 101": Basics of Carbon Markets for Newcomers</BlogPost></HashLink>
                     <BlogPost imgSrc={Stock}>Diversification in Carbon Credits: Lessons from Asset Management</BlogPost>
                     <BlogPost imgSrc={Smoke}>Carbon Credits: A Viable Alternative to Internal Emissions Reduction</BlogPost>
                     <BlogPost imgSrc={Mountain}>Individuals and Carbon Credits: Making a Personal Impact</BlogPost>

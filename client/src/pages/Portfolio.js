@@ -27,7 +27,7 @@ function Portfolio() {
                     <form className='form-group-1' onSubmit={handleSubmit}>
                         <label>
                             How many assets do you wish to purchase?
-                            <select name="quantityField" onChange={(event) => {setQuantity(event.target.value)}}>
+                            <select name="quantityField" onChange={(event) => { setQuantity(event.target.value) }}>
                                 <option value="1">1,000</option>
                                 <option value="2">10,000</option>
                                 <option value="3">100,000</option>
@@ -35,7 +35,7 @@ function Portfolio() {
                         </label>
                         <label>
                             Choose your budget range (in U.S. Dollars):
-                            <select name="budgetField" onChange={(event) => {setBudget(event.target.value)}}>
+                            <select name="budgetField" onChange={(event) => { setBudget(event.target.value) }}>
                                 <option value="1">1 Million</option>
                                 <option value="2">10 Million</option>
                                 <option value="3">100 Million</option>
@@ -43,7 +43,7 @@ function Portfolio() {
                         </label>
                         <label>
                             Choose a risk level:
-                            <select name="riskField" onChange={(event) => {setRisk(event.target.value)}}>
+                            <select name="riskField" onChange={(event) => { setRisk(event.target.value) }}>
                                 <option value="1">Low</option>
                                 <option value="2">Medium</option>
                                 <option value="3">High</option>
@@ -52,12 +52,16 @@ function Portfolio() {
                         <button className="submit-button" type="submit">Generate Graphs</button>
                     </form>
                     <div className='graph-container'>
-                        <ReactModalImage
-                            small={filename}
-                            large={filename}
-                            alt="graph"
-                            className="graph-img"
-                        />
+                        <div>
+                            <ReactModalImage
+                                small={filename}
+                                large={filename}
+                                alt="graph"
+                                className="graph-img"
+                            />
+                            <br />
+                            <p style={{textAlign:"center"}}>Click to Expand</p>
+                        </div>
                     </div>
                 </div>
                 <div className='viz-selector'>

@@ -6,6 +6,7 @@ import Globe from "../assets/globe.jpg";
 export default function Blog(){
     return (
         <section className="blog">
+            <div id="post-1"></div>
             <BlogLanding
                 title="Carbon Credits: A Viable Alternative to Internal Emissions Reduction"
                 subtitle="As the urgency of addressing climate change grows, businesses and individuals are under increasing pressure to reduce their carbon footprints. While many opt for direct measures to cut emissions internally, purchasing carbon credits presents an attractive alternative. This article delves into the reasons why buying carbon credits can be a good choice for those looking to combat climate change."
